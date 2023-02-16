@@ -1,0 +1,73 @@
+﻿body {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.controls {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    width: 100%;
+    min-height: 5em;
+    background-color: white;
+}
+
+    .controls label {
+        background-color: white;
+    }
+
+.number {
+    width: 4em;
+    margin-left: 1em;
+    border-style: hidden hidden dashed hidden;
+    text-align: right;
+}
+
+.input-div {
+    margin-left: 1em;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+}
+
+.btn-submit {
+    background-color: lawngreen;
+    border: 1px solid green;
+    cursor: pointer;
+}
+
+    .btn-submit:hover {
+        border: 3px;
+    }
+
+.btn-stop {
+    background-color: darkorange;
+    border: 1px solid green;
+    cursor: pointer;
+}
+
+    .btn-submit:hover {
+        border: 3px;
+    }
+
+.btn-save {
+    background-color: cadetblue;
+    border: 1px solid green;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    border: 3px;
+}
+
+.input-group {
+    width: 40%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-content: space-between;
+}

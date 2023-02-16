@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Triangular Dsitribution</title>
+    <meta name="author" content="Mustafa ŞENTÜRK">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1905050">
+    <meta charset="UTF-8" />
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <link type="text/css" href="StyleSheet.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js"></script>
+</head>
+<body>
+    <div class="controls">
+        <fieldset id="initial-values" class="input-group">
+            <legend>Initial Values</legend>
+            <div class="input-div">
+                <label for="S-0">S_0:</label>
+                <input name="S-0" id="S-0" class="number" type="number" value="1000" />
+            </div>
+            <div class="input-div">
+                <label for="I-0">I_0:</label>
+                <input name="I-0" id="I-0" class="number" type="number" value="10" />
+            </div>
+            <div class="input-div">
+                <label for="E-0">E_0:</label>
+                <input name="E-0" id="E-0" class="number" type="number" value="0" />
+            </div>
+            <div class="input-div">
+                <label for="R-0">R_0:</label>
+                <input name="R-0" id="R-0" class="number" type="number" value="0" />
+            </div>
+            <div class="input-div">
+                <label for="t-limit">time duration:</label>
+                <input name="t-limit" id="t-limit" class="number" type="number" value="180" />
+            </div>
+        </fieldset>
+        <fieldset id="paramter-values" class="input-group">
+            <legend>Parameters</legend>
+            <div class="input-div">
+                <label for="param-bs">bs:</label>
+                <input name="param-bs" id="param-bs" class="number" type="number" value="0.2" min="0" step="0.1" />
+            </div>
+            <div class="input-div">
+                <label for="param-gamma">gamma:</label>
+                <input name="param-gamma" id="param-gamma" class="number" type="number" value="0.01" min="0" />
+            </div>
+            <div class="input-div">
+                <label for="param-k">k:</label>
+                <input name="param-k" id="param-k" class="number" type="number" value="0.02" min="0" />
+            </div>
+            <div class="input-div">
+                <label for="param-tinc">t_inc:</label>
+                <input name="param-tinc" id="param-tinc" class="number" type="number" value="4" min="0" />
+            </div>
+            <!--<div class="input-div">
+                <label for="param-th">t_h:</label>
+                <input name="param-th" id="param-th" class="number" type="number" value="18" />
+            </div>-->
+            <div class="input-div">
+                <label for="param-x_0">x_0:</label>
+                <input name="param-x_0" id="param-x_0" class="number" type="number" value="4" min="1" max="10" />
+            </div>
+            <div class="input-div">
+                <label for="param-c">c:</label>
+                <input name="param-c" id="param-c" class="number" type="number" value="10" min="1" />
+            </div>
+            <div class="input-div">
+                <label for="param-L">L:</label>
+                <input name="param-L" id="param-L" class="number" type="number" value="18" min="1" />
+            </div>
+        </fieldset>
+    </div>
+    <button class="btn-submit" onclick="StartSeir()">Run</button>
+    <button class="btn-stop" onclick="StopSeir()">Stop</button>
+    <button class="btn-submit" onclick="Continue()">Continue</button>
+    <button class="btn-save" onclick="Save()">Save</button>
+    <input id="check-showParameters" name="check-showParameters" type="checkbox" onclick="controlCheck(this)"/><label for="check-showParameters">Show inputs at the bottom</label>
+
+    <script type="module">
+        import { GetSeirContext, SeirParameters } from './TriangularDistribution.js';
+        import { SetContext, startSim, stopSim } from './sketch.js';
+        let SeirIsStarted = false;
+        let SeirContext = {};
+        window.StartSeir = () => {
+            let S0 = +document.getElementById("S-0").value;
+            let E0 = +document.getElementById("E-0").value;
+            let I0 = +document.getElementById("I-0").value;
+            let R0 = +document.getElementById("R-0").value;
+            S0 = S0 < 0 ? 0 : S0;
+            E0 = E0 < 0 ? 0 : E0;
+            I0 = I0 < 0 ? 0 : I0;
+            R0 = R0 < 0 ? 0 : R0;
+            let dur = +document.getElementById("t-limit").value;
+            SeirContext = GetSeirContext(S0, E0, I0, R0);
+
+            let bs = +document.getElementById("param-bs").value;
+            let gamma = +document.getElementById("param-gamma").value;
+            let k = +document.getElementById("param-k").value;
+            let tinc = +document.getElementById("param-tinc").value;
+            let th = 0; //+document.getElementById("param-th").value;
+            let x_0 = +document.getElementById("param-x_0").value;
+            let c = +document.getElementById("param-c").value;
+            let L = +document.getElementById("param-L").value;
+            let parameters = SeirParameters(bs, gamma, k, tinc, th, x_0, c, L);
+            console.log(parameters);
+            console.log(SeirContext);
+            startSim(SeirContext, parameters, dur);
+            SeirIsStarted = true;
+        }
+        window.StopSeir = () => {
+            stopSim();
+            SeirIsStarted = false;
+        }
+
+        
+        window.controlCheck = (element) => { window.isParametersToBeShown = element.checked; console.log(element.checked) };
+        window.isParametersToBeShown = false;
+
+    </script>
+    <script type="module" src="sketch.js"></script>
+</body>
+</html>
