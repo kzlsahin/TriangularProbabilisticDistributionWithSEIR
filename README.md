@@ -7,3 +7,4 @@ I developed this application as a supportive part of my academic research. This 
 ## to see alive: 
 https://kzlsahin.online/TriangularDistribution_ver3/
 
+![SEIR_Sim](https://user-images.githubusercontent.com/46689277/229783927-a60629aa-8388-4e00-9cb0-d0d1296b6a05.png)
